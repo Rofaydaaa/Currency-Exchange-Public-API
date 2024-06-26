@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const { convertCurrency, convertCurrencyWithAuth } = require('./currencyService');
 
+// Function to log successful conversion
+function logSuccess(source, targets, convertedResult) {
+  console.log(`Currency conversion successful for ${source} to ${targets.join(', ')}:`);
+  console.log(convertedResult); // Log the actual conversion result
+}
+
 // POST /api/convert
 // Body: { "source": "inr", "targets": ["usd", "aed", "eur"] }
 router.post('/convert', async (req, res) => {
@@ -14,6 +20,7 @@ router.post('/convert', async (req, res) => {
 
   try {
     const result = await convertCurrency(source, targets);
+    logSuccess(source, targets, result);
     res.json(result);
   } catch (error) {
     const statusCode = error.statusCode || 500;
@@ -36,6 +43,7 @@ router.post('/convert-auth', async (req, res) => {
 
   try {
     const result = await convertCurrencyWithAuth(source, targets, authToken);
+    logSuccess(source, targets, result);
     res.json(result);
   } catch (error) {
     const statusCode = error.statusCode || 500;
