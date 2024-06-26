@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: Currency Exchange API
+  description: API for converting currencies using APYHub. This API utilizes the APYHub Currency Conversion Multiple Utility, available at [APYHub Currency Conversion API](https://apyhub.com/utility/currency-conversion-multiple?ref=public_apis).
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+paths:
+  /convert:
+    post:
+      summary: Convert currency without authentication, use the server token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                  example: "inr"
+                targets:
+                  type: array
+                  items:
+                    type: string
+                  example: ["usd", "aed", "eur", "wrongCode"]
+              required:
+                - source
+                - targets
+            example:
+              source: "inr"
+              targets: ["usd", "aed", "eur", "wrongCode"]
+      responses:
+        '200':
+          description: Successful currency conversion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inr_aed:
+                    type: number
+                    example: 0.044012751
+                  inr_eur:
+                    type: number
+                    example: 0.011184688
+                  inr_usd:
+                    type: number
+                    example: 0.011984412
+                  wrongCode:
+                    type: boolean
+                    example: false
+                example:
+                  inr_aed: 0.044012751
+                  inr_eur: 0.011184688
+                  inr_usd: 0.011984412
+                  inr_wrongCode: false
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid request payload"
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Authentication required"
+
+  /convert-auth:
+    post:
+      summary: Convert currency with authentication, use your own token from APYHub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                  example: "inr"
+                targets:
+                  type: array
+                  items:
+                    type: string
+                  example: ["usd", "aed", "eur", "wrongCode"]
+              required:
+                - source
+                - targets
+            example:
+              source: "inr"
+              targets: ["usd", "aed", "eur", "wrongCode"]
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Successful currency conversion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  inr_aed:
+                    type: number
+                    example: 0.044012751
+                  inr_eur:
+                    type: number
+                    example: 0.011184688
+                  inr_usd:
+                    type: number
+                    example: 0.011984412
+                  wrongCode:
+                    type: boolean
+                    example: false
+                example:
+                  inr_aed: 0.044012751
+                  inr_eur: 0.011184688
+                  inr_usd: 0.011984412
+                  inr_wrongCode: false
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Invalid request payload"
+        '401':
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                example:
+                  error: "Authentication required"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
