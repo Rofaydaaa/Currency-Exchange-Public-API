@@ -5,7 +5,7 @@ const { convertCurrency, convertCurrencyWithAuth } = require('./currencyService'
 // Function to log successful conversion
 function logSuccess(source, targets, convertedResult) {
   console.log(`Currency conversion successful for ${source} to ${targets.join(', ')}:`);
-  console.log(convertedResult); // Log the actual conversion result
+  console.log(convertedResult);
 }
 
 // POST /api/convert
