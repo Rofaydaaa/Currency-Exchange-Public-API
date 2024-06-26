@@ -19,8 +19,8 @@ The Currency Exchange API is a RESTful service designed to facilitate currency c
 **Clone the repository:**
 
 ```bash
-git clone <repository-url>
-cd currency-exchange-api
+git clone https://github.com/Rofaydaaa/Currency-Exchange-Public-API.git
+cd Currency-Exchange-Public-API
 ```
 
 **Install dependencies:**
@@ -44,11 +44,18 @@ The server will start running on http://localhost:3000.
 **Clone the repository:**
 
 ```bash
-git clone <repository-url>
-cd currency-exchange-api
+git clone https://github.com/Rofaydaaa/Currency-Exchange-Public-API.git
+cd Currency-Exchange-Public-API
 ```
 
 ## API Documentation
 **Explore the API endpoints using Swagger documentation:**
 
 Open your browser and go to http://localhost:3000/api-docs
+
+![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/b71aa8c6-68b9-4b8b-817b-d4353b3c8968)
+![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/ce9612ea-1035-4e75-950a-e68fdf657d89)
+![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/5286bc00-24b6-4a04-a365-e67d96099f8f)
+![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/eeb45169-3503-464b-96bf-47dc336513ff)
+
+
