@@ -14,8 +14,13 @@ The Currency Exchange API is a RESTful service designed to facilitate currency c
   Here is time comparaison for a cached and uncached API call (5 ms vs 3.5 sec)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/3cc7e8cf-32fa-4658-8018-0bfe7bdae80b)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/f68104c9-17b2-40fa-97f6-f612a481507e)
+- **Rate Limiting**: Implementing checks on a convert API to ensure that each user can only perform 100 API requests per hour(will change it to a smaller amount when runing the unit test as shown in the next point)
+  I will be using express-rate-limit library
+- Unit Tests: Add unit tests for the currency exchange module.
+  ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/3c3fa524-3385-4dbc-947b-5df9d90619ba)
+  ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/0807ef61-7f65-409b-bcbc-2362135e79fb)
+  ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/5f55eb8e-f94f-4775-a057-35d7234e2c9e)
 
- 
 
 ## Getting Started
 ### Prerequisites
@@ -47,6 +52,11 @@ APY_TOKEN=your_apyhub_token
 npm start
 ```
 The server will start running on http://localhost:3000.
+
+**To run tests**
+```bash
+npm test
+```
 
 ### With Docker Installation
 **Clone the repository:**
