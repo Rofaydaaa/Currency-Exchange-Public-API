@@ -8,6 +8,13 @@ The Currency Exchange API is a RESTful service designed to facilitate currency c
 - **Convert Currency**: Convert from a specified source currency to multiple target currencies.
 - **Authentication**: Secure endpoints that require authentication using a bearer token.
 - **Error Handling**: Robust error handling for invalid requests and authentication failures.
+- **Docker Compose**: Containerized deployment using Docker Compose for simplified management and deployment.
+- **Caching**: Implement caching to reduce the number of requests to the external API. (using node-cache and for Short-Term Cache (1 Hour))
+  Here is time comparaison for a cached and uncached API call (5 ms vs 3.5 sec)
+  ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/3cc7e8cf-32fa-4658-8018-0bfe7bdae80b)
+  ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/f68104c9-17b2-40fa-97f6-f612a481507e)
+
+ 
 
 ## Getting Started
 ### Prerequisites
