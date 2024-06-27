@@ -1,11 +1,20 @@
 const axios = require('axios');
 require('dotenv').config();
+const NodeCache = require('node-cache');
+
+const cache = new NodeCache({ stdTTL: 60 * 60 }); 
 
 const APY_TOKEN = process.env.APY_TOKEN || 'apyhub-token';
 const APY_BASE_URL = 'https://api.apyhub.com/data/convert/currency/multiple';
 
 // Function to convert currency without authentication
 async function convertCurrency(source, targets) {
+  const cacheKey = `${source}_${targets.join('-')}`;
+  const cachedResult = cache.get(cacheKey);
+  if (cachedResult) {
+    console.log(`Retrieving from cache for ${cacheKey}`);
+    return cachedResult;
+  }
   try {
     const response = await axios.post(
         APY_BASE_URL,
@@ -17,7 +26,9 @@ async function convertCurrency(source, targets) {
           }
         }
       );
-    return response.data;
+    const result = response.data;
+    cache.set(cacheKey, result);
+    return result;
   } catch (error) {
     handleAxiosError(error);
   }
@@ -25,6 +36,12 @@ async function convertCurrency(source, targets) {
 
 // Function to convert currency with authentication
 async function convertCurrencyWithAuth(source, targets, authToken) {
+  const cacheKey = `${source}_${targets.join('-')}`;
+  const cachedResult = cache.get(cacheKey);
+  if (cachedResult) {
+    console.log(`Retrieving from cache for ${cacheKey}`);
+    return cachedResult;
+  }
   try {
     const token = authToken.split('Bearer ')[1];
     const response = await axios.post(
@@ -37,7 +54,9 @@ async function convertCurrencyWithAuth(source, targets, authToken) {
         }
       }
     );
-    return response.data;
+    const result = response.data;
+    cache.set(cacheKey, result);
+    return result;
   } catch (error) {
     handleAxiosError(error);
   }
