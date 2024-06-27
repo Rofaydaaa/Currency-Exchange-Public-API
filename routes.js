@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { convertCurrency, convertCurrencyWithAuth } = require('./currencyService');
+const rateLimit = require('express-rate-limit');
+
+const limiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 100,
+    message: 'Too many requests from this IP, please try again later.',
+  });
 
 // Function to log successful conversion
 function logSuccess(source, targets, convertedResult) {
@@ -10,7 +17,7 @@ function logSuccess(source, targets, convertedResult) {
 
 // POST /api/convert
 // Body: { "source": "inr", "targets": ["usd", "aed", "eur"] }
-router.post('/convert', async (req, res) => {
+router.post('/convert', limiter, async (req, res) =>  {
   const { source, targets } = req.body;
 
   if (!source || !targets || !Array.isArray(targets)) {
@@ -32,7 +39,7 @@ router.post('/convert', async (req, res) => {
 // POST /api/convert-auth
 // Body: { "source": "inr", "targets": ["usd", "aed", "eur"] }
 // Headers: { "Authorization": "Bearer <token>" }
-router.post('/convert-auth', async (req, res) => {
+router.post('/convert-auth', limiter, async (req, res) => {
   const { source, targets } = req.body;
   const authToken = req.headers.authorization;
 
