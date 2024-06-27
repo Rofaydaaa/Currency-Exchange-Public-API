@@ -48,6 +48,18 @@ git clone https://github.com/Rofaydaaa/Currency-Exchange-Public-API.git
 cd Currency-Exchange-Public-API
 ```
 
+**Set up environment variables:**<br>
+Create a .env file in the root directory with the following variable (find this token after creating an account on [APYHub](https://apyhub.com/utility/currency-conversion-multiple?ref=public_apis)):
+```bash
+APY_TOKEN=your_apyhub_token
+```
+
+**Run Docker Compose**
+```bash
+docker-compose up -d
+```
+The server will start running on http://localhost:3000.
+
 ## API Documentation
 **Explore the API endpoints using Swagger documentation:**
 
