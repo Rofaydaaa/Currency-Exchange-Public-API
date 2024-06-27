@@ -1,5 +1,18 @@
 # Currency Exchange API
 
+# Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+    - [Caching](#caching)
+    - [Rate Limiting](#rate-limiting)
+    - [Unit Tests](#unit-tests)
+3. [Getting Started](#getting-started)
+   - [Prerequisites](#prerequisites)
+   - [Without Docker Installation](#without-docker-installation)
+   - [With Docker Installation](#with-docker-installation)
+4. [API Documentation](#api-documentation)
+
 ## Overview
 The Currency Exchange API is a RESTful service designed to facilitate currency conversion using the [APYHub](https://apyhub.com/utility/currency-conversion-multiple?ref=public_apis) platform. It allows users to convert currencies easily by specifying a source currency and a list of target currencies.
 
@@ -10,13 +23,19 @@ The Currency Exchange API is a RESTful service designed to facilitate currency c
 - **Error Handling**: Robust error handling for invalid requests and authentication failures.
 - **Docker Compose**: Containerized deployment using Docker Compose for simplified management and deployment.
   Used PM2 to run nodejs providing continuous monitoring using logs and automatic restarts when deployed on a server
-- **Caching**: Implement caching to reduce the number of requests to the external API. (using node-cache and for Short-Term Cache (1 Hour))
+- **Caching**
+- **Rate Limiting**
+- **Unit Tests**:
+### Caching 
+Implement caching to reduce the number of requests to the external API. (using node-cache and for Short-Term Cache (1 Hour))
+
   Here is time comparaison for a cached and uncached API call (5 ms vs 3.5 sec)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/3cc7e8cf-32fa-4658-8018-0bfe7bdae80b)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/f68104c9-17b2-40fa-97f6-f612a481507e)
-- **Rate Limiting**: Implementing checks on a convert API to ensure that each user can only perform 100 API requests per hour(will change it to a smaller amount when runing the unit test as shown in the next point)
-  I will be using express-rate-limit library
-- Unit Tests: Add unit tests for the currency exchange module.
+### Rate Limiting
+Implementing checks on a convert API to ensure that each user can only perform 100 API requests per hour(will change it to a smaller amount when runing the unit test as shown in the next point), I will be using express-rate-limit library
+### Unit Tests 
+  Here are the implemented tests
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/3c3fa524-3385-4dbc-947b-5df9d90619ba)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/0807ef61-7f65-409b-bcbc-2362135e79fb)
   ![image](https://github.com/Rofaydaaa/Currency-Exchange-Public-API/assets/125312170/5f55eb8e-f94f-4775-a057-35d7234e2c9e)
