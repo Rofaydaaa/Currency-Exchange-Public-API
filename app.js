@@ -9,8 +9,20 @@ const YAML = require('yamljs');
 require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const swaggerDocument = YAML.load('./swagger.yaml');
+
+// Middleware to handle JSON parsing errors
+app.use(express.json({
+  verify: (req, res, buf, encoding) => {
+    try {
+      JSON.parse(buf);
+    } catch (e) {
+      res.status(400).json({ error: 'Invalid JSON' });
+      return next(e);
+    }
+  }
+}));
 
 // Middleware Setup
 app.use(bodyParser.json());
@@ -25,3 +37,5 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app;

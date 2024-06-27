@@ -3,11 +3,29 @@ const router = express.Router();
 const { convertCurrency, convertCurrencyWithAuth } = require('./currencyService');
 const rateLimit = require('express-rate-limit');
 
+
+// Middleware for authentication
+function authenticate(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Authentication required' });
+  }
+
+  next();
+}
+
+const windowMs = process.env.RATE_LIMIT_WINDOW_MS || (60 * 60 * 1000); // Default: 1 hour
+const maxRequests = process.env.RATE_LIMIT_MAX_REQUESTS || 100; // Default: 100
+
 const limiter = rateLimit({
-    windowMs: 60 * 60 * 1000, // 1 hour
-    max: 100,
-    message: 'Too many requests from this IP, please try again later.',
-  });
+  windowMs: parseInt(windowMs, 10),
+  max: parseInt(maxRequests, 10),
+  message: { error: 'Too many requests from this IP, please try again later.' }, // Send JSON message
+  headers: true,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Function to log successful conversion
 function logSuccess(source, targets, convertedResult) {
@@ -39,7 +57,7 @@ router.post('/convert', limiter, async (req, res) =>  {
 // POST /api/convert-auth
 // Body: { "source": "inr", "targets": ["usd", "aed", "eur"] }
 // Headers: { "Authorization": "Bearer <token>" }
-router.post('/convert-auth', limiter, async (req, res) => {
+router.post('/convert-auth', limiter, authenticate, async (req, res) => {
   const { source, targets } = req.body;
   const authToken = req.headers.authorization;
 
